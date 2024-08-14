@@ -4,6 +4,7 @@ import { AJAX } from './helpers.js';
 function createSearches() {
   let query = $state('');
   let recipes = $state([]);
+  let urlId = $state(window.location.hash.slice(1));
   let page = $state(1);
 
   async function loadSearchResults(query) {
@@ -34,6 +35,12 @@ function createSearches() {
     },
     get recipes() {
       return recipes;
+    },
+    get urlId() {
+      return urlId;
+    },
+    set urlId(value) {
+      urlId = value;
     },
     loadSearchResults,
   };

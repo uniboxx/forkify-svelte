@@ -1,17 +1,18 @@
 <script>
   // @ts-nocheck
-
+  import { searchState } from '../js/state.svelte';
   import { icons } from '../js/config';
-  let { recipe } = $props();
+  let { recipe, urlId, onclick } = $props();
   const { image, title, publisher, id, key } = recipe;
-  let urlId = $state(window.location.hash.slice(1));
-  console.log(id);
+
+  // console.log(id);
 </script>
 
 <li class="preview">
   <a
-    class={`preview__link ${urlId === id && 'preview__link--active'}`}
+    class={`preview__link ${searchState.urlId === id && 'preview__link--active'}`}
     href={`#${id}`}
+    onclick={() => (searchState.urlId = id)}
   >
     <figure class="preview__fig">
       <img src={image} alt={title} />

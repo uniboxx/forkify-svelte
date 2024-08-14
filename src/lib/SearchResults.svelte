@@ -7,7 +7,7 @@
 
   async function getRecipes() {
     if (!searchState.query) return;
-    console.log(searchState.query);
+    // console.log(searchState.query);
 
     await searchState.loadSearchResults(searchState.query);
 
@@ -21,7 +21,7 @@
       <Spinner />
     {:then recipes}
       {#each recipes as recipe (recipe.id)}
-        <Result {recipe} />
+        <Result {recipe} {onclick} />
       {/each}
     {/await}
   </ul>
