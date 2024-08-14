@@ -1,8 +1,7 @@
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
-// import { AJAX } from '../lib/Helpers.svelte';
-import { writable } from 'svelte/store';
+import { AJAX } from './helpers.js';
 
-export const state = writable({
+export const state = {
   recipe: {},
   search: {
     query: '',
@@ -11,18 +10,7 @@ export const state = writable({
     resultsPerPage: RES_PER_PAGE,
   },
   bookmarks: [],
-});
-
-// export const state = {
-//   recipe: {},
-//   search: {
-//     query: "",
-//     results: [],
-//     page: 1,
-//     resultsPerPage: RES_PER_PAGE,
-//   },
-//   bookmarks: [],
-// };
+};
 
 function createRecipeObject(data) {
   const { recipe } = data.data;
@@ -56,26 +44,27 @@ function createRecipeObject(data) {
 //   }
 // }
 
-// export async function loadSearchResults(query) {
-//   try {
-//     const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
-//     // console.log(data);
+export async function loadSearchResults(query) {
+  try {
+    const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
+    console.log(data);
+    return data;
 
-//     state.update(obj=>{obj.search.results = data.data.recipes.map((rec) => {
-//       return {
-//         id: rec.id,
-//         title: rec.title,
-//         publisher: rec.publisher,
-//         image: rec.image_url,
-//         ...(rec.key && { key: rec.key }),
-//       };
-//     });
-//     state.update(obj=>obj.search.page = 1);
-//   } catch (err) {
-//     console.error(`${err} 💥💥💥💥`);
-//     throw err;
-//   }
-// }
+    // state.update(obj=>{obj.search.results = data.data.recipes.map((rec) => {
+    //   return {
+    //     id: rec.id,
+    //     title: rec.title,
+    //     publisher: rec.publisher,
+    //     image: rec.image_url,
+    //     ...(rec.key && { key: rec.key }),
+    //   };
+    // });
+    // state.update(obj=>obj.search.page = 1);
+  } catch (err) {
+    console.error(`${err} 💥💥💥💥`);
+    throw err;
+  }
+}
 
 export function getSearchResultsPage(page = state.search.page) {
   state.search.page = page;

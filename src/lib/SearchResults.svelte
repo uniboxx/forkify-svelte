@@ -1,4 +1,17 @@
+<script>
+  // @ts-nocheck
+  import { query } from '../js/state.svelte';
+  import { loadSearchResults } from '../js/model';
+
+  async function getData() {
+    return loadSearchResults(query.query);
+  }
+</script>
+
 <div class="search-results">
+  {#await getData() then data}
+    <p>{data}</p>
+  {/await}
   <ul class="results">
     <!-- 
       <li class="preview">
@@ -11,7 +24,7 @@
             <p class="preview__publisher">The Pioneer Woman</p>
             <div class="preview__user-generated">
               <svg>
-                <use href="src/img/icons.svg#icon-user"></use>
+                <use href="{BASE}/img/icons.svg#icon-user"></use>
               </svg>
             </div>
           </div>
@@ -23,14 +36,14 @@
   <div class="pagination">
     <!-- <button class="btn--inline pagination__btn--prev">
         <svg class="search__icon">
-          <use href="src/img/icons.svg#icon-arrow-left"></use>
+          <use href="{BASE}/img/icons.svg#icon-arrow-left"></use>
         </svg>
         <span>Page 1</span>
       </button>
       <button class="btn--inline pagination__btn--next">
         <span>Page 3</span>
         <svg class="search__icon">
-          <use href="src/img/icons.svg#icon-arrow-right"></use>
+          <use href="{BASE}/img/icons.svg#icon-arrow-right"></use>
         </svg>
       </button> -->
   </div>

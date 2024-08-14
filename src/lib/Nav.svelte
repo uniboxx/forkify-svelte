@@ -24,7 +24,7 @@
           <div class="message">
             <div>
               <svg>
-                <use href="src/img/icons.svg#icon-smile"></use>
+                <use href="{BASE}/img/icons.svg#icon-smile"></use>
               </svg>
             </div>
             <p>No bookmarks yet. Find a nice recipe and bookmark it :)</p>

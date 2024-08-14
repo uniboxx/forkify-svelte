@@ -1,8 +1,22 @@
-<form class="search">
+<script>
+  // @ts-nocheck
+
+  import { query } from '../js/state.svelte';
+  let input = $state('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    query.assign(input);
+    // console.log(query.query);
+  }
+</script>
+
+<form class="search" onsubmit={handleSubmit}>
   <input
     type="text"
     class="search__field"
     placeholder="Search over 1,000,000 recipes..."
+    bind:value={input}
   />
   <button class="btn search__btn">
     <svg class="search__icon">

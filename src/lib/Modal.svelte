@@ -1,3 +1,7 @@
+<script>
+  import { BASE } from '../js/config';
+</script>
+
 <div class="overlay hidden"></div>
 <div class="add-recipe-window hidden">
   <button class="btn--close-modal">&times;</button>
@@ -64,7 +68,7 @@
 
     <button class="btn upload__btn">
       <svg>
-        <use href="src/img/icons.svg#icon-upload-cloud"></use>
+        <use href="{BASE}/img/icons.svg#icon-upload-cloud"></use>
       </svg>
       <span>Upload</span>
     </button>
