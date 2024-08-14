@@ -1,9 +1,13 @@
+<script>
+  import { BASE } from '../js/config';
+</script>
+
 <nav class="nav">
   <ul class="nav__list">
     <li class="nav__item">
       <button class="nav__btn nav__btn--add-recipe">
         <svg class="nav__icon">
-          <use href="/forkify-svelte/img/icons.svg#icon-edit"></use>
+          <use href="{BASE}/img/icons.svg#icon-edit"></use>
         </svg>
         <span>Add recipe</span>
       </button>
@@ -11,7 +15,7 @@
     <li class="nav__item">
       <button class="nav__btn nav__btn--bookmarks">
         <svg class="nav__icon">
-          <use href="/forkify-svelte/img/icons.svg#icon-bookmark"></use>
+          <use href="{BASE}/img/icons.svg#icon-bookmark"></use>
         </svg>
         <span>Bookmarks</span>
       </button>

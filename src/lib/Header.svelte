@@ -1,10 +1,11 @@
 <script>
+  import { BASE } from '../js/config';
   import Form from './Form.svelte';
   import Nav from './Nav.svelte';
 </script>
 
 <header class="header">
-  <img src="/forkify-svelte/img/logo.png" alt="Logo" class="header__logo" />
+  <img src="{BASE}/img/logo.png" alt="Logo" class="header__logo" />
   <Form />
   <Nav />
 </header>
