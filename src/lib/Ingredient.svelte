@@ -3,7 +3,6 @@
   import fracty from 'fracty';
   import { icons } from '../js/config';
   const { ingredient } = $props();
-  console.log(ingredient);
 </script>
 
 <li class="recipe__ingredient">

@@ -7,7 +7,7 @@
   import Spinner from './Spinner.svelte';
 
   async function getRecipe() {
-    console.log(searchState.urlId);
+    // console.log(searchState.urlId);
     await recipeState.loadRecipe(searchState.urlId);
 
     const recipe = $state.snapshot(recipeState.recipe);
