@@ -4,7 +4,7 @@
 </script>
 
 <header class="header">
-  <img src="/img/logo.png" alt="Logo" class="header__logo" />
+  <img src="/forkify-svelte/img/logo.png" alt="Logo" class="header__logo" />
   <Form />
   <Nav />
 </header>
