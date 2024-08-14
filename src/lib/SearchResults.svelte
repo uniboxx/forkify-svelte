@@ -1,20 +1,24 @@
 <script>
   // @ts-nocheck
-
-  import { query, results } from '../js/state.svelte';
+  import { base } from '../js/config';
+  import { searchState } from '../js/state.svelte';
   import Result from './Result.svelte';
+  import Spinner from './Spinner.svelte';
 
   async function getRecipes() {
-    const recipes = await results.loadSearchResults(query.query);
+    if (!searchState.query) return;
+    console.log(searchState.query);
 
-    return $state.snapshot(results.recipes);
+    await searchState.loadSearchResults(searchState.query);
+
+    return $state.snapshot(searchState.recipes);
   }
 </script>
 
 <div class="search-results">
   <ul class="results">
     {#await getRecipes()}
-      <p>Loading recipes...</p>
+      <Spinner />
     {:then recipes}
       {#each recipes as recipe (recipe.id)}
         <Result {recipe} />
@@ -22,20 +26,20 @@
     {/await}
   </ul>
 
-  <div class="pagination">
-    <!-- <button class="btn--inline pagination__btn--prev">
+  <!-- <div class="pagination">
+    <button class="btn--inline pagination__btn--prev">
         <svg class="search__icon">
-          <use href="{BASE}/img/icons.svg#icon-arrow-left"></use>
+          <use href="{base}/img/icons.svg#icon-arrow-left"></use>
         </svg>
         <span>Page 1</span>
       </button>
       <button class="btn--inline pagination__btn--next">
         <span>Page 3</span>
         <svg class="search__icon">
-          <use href="{BASE}/img/icons.svg#icon-arrow-right"></use>
+          <use href="{base}/img/icons.svg#icon-arrow-right"></use>
         </svg>
-      </button> -->
-  </div>
+      </button>
+  </div> -->
 
   <p class="copyright">
     &copy; Copyright by
@@ -62,7 +66,7 @@
     margin-bottom: 2rem;
   }
 
-  .pagination {
+  /* .pagination {
     margin-top: auto;
     padding: 0 3.5rem;
 
@@ -80,7 +84,7 @@
         float: right;
       }
     }
-  }
+  } */
 
   .copyright {
     color: variables.$color-grey-dark-2;

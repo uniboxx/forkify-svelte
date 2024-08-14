@@ -1,23 +1,27 @@
 <script>
   // @ts-nocheck
 
-  import { BASE } from '../js/config';
+  import { icons } from '../js/config';
   let { recipe } = $props();
-  const { image, title, publisher } = recipe;
+  const { image, title, publisher, id, key } = recipe;
+  let urlId = $state(window.location.hash.slice(1));
+  console.log(id);
 </script>
 
 <li class="preview">
-  <!-- preview__link--active -->
-  <a class="preview__link" href="#12345">
+  <a
+    class={`preview__link ${urlId === id && 'preview__link--active'}`}
+    href={`#${id}`}
+  >
     <figure class="preview__fig">
-      <img src={image} alt="Test" />
+      <img src={image} alt={title} />
     </figure>
     <div class="preview__data">
       <h4 class="preview__title">{title}</h4>
       <p class="preview__publisher">{publisher}</p>
-      <div class="preview__user-generated">
+      <div class={`preview__user-generated ${key ? '' : 'hidden'}`}>
         <svg>
-          <use href="{BASE}/img/icons.svg#icon-user"></use>
+          <use href={`${icons}#icon-user`}></use>
         </svg>
       </div>
     </div>
@@ -129,6 +133,10 @@
         height: 1.2rem;
         width: 1.2rem;
         fill: variables.$color-primary;
+      }
+      &.hidden {
+        visibility: hidden;
+        opacity: 0;
       }
     }
   }

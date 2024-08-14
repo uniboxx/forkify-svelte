@@ -16,8 +16,8 @@
 
 <style lang="scss">
   @use './sass/variables';
-  h1 {
+  /* h1 {
     font-size: 4rem;
     color: variables.$color-primary;
-  }
+  } */
 </style>

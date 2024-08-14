@@ -1,24 +1,10 @@
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
 import { AJAX } from './helpers.js';
 
-function createQuery() {
+function createSearches() {
   let query = $state('');
-
-  function assign(newValue) {
-    query = newValue;
-  }
-
-  return {
-    get query() {
-      return query;
-    },
-    assign,
-  };
-}
-export const query = createQuery();
-
-function createResults() {
   let recipes = $state([]);
+  let page = $state(1);
 
   async function loadSearchResults(query) {
     try {
@@ -40,10 +26,16 @@ function createResults() {
     }
   }
   return {
+    get query() {
+      return query;
+    },
+    set query(value) {
+      query = value;
+    },
     get recipes() {
       return recipes;
     },
     loadSearchResults,
   };
 }
-export const results = createResults();
+export const searchState = createSearches();

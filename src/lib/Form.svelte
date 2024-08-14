@@ -1,13 +1,15 @@
 <script>
   // @ts-nocheck
 
-  import { query } from '../js/state.svelte';
+  import { searchState } from '../js/state.svelte';
   let input = $state('');
 
   function handleSubmit(e) {
     e.preventDefault();
-    query.assign(input);
-    // console.log(query.query);
+    if (!input) return;
+    searchState.query = input;
+    // console.log(searchState.query);
+    input = '';
   }
 </script>
 

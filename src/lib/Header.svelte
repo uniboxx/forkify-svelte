@@ -1,11 +1,11 @@
 <script>
-  import { BASE } from '../js/config';
+  import { base } from '../js/config';
   import Form from './Form.svelte';
   import Nav from './Nav.svelte';
 </script>
 
 <header class="header">
-  <img src="{BASE}/img/logo.png" alt="Logo" class="header__logo" />
+  <img src="{base}/img/logo.png" alt="Logo" class="header__logo" />
   <Form />
   <Nav />
 </header>

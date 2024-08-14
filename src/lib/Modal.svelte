@@ -1,5 +1,5 @@
 <script>
-  import { BASE } from '../js/config';
+  import { base } from '../js/config';
 </script>
 
 <div class="overlay hidden"></div>
@@ -68,7 +68,7 @@
 
     <button class="btn upload__btn">
       <svg>
-        <use href="{BASE}/img/icons.svg#icon-upload-cloud"></use>
+        <use href="{base}/img/icons.svg#icon-upload-cloud"></use>
       </svg>
       <span>Upload</span>
     </button>
