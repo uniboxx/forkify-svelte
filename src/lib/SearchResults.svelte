@@ -1,36 +1,25 @@
 <script>
   // @ts-nocheck
-  import { query } from '../js/state.svelte';
-  import { loadSearchResults } from '../js/model';
 
-  async function getData() {
-    return loadSearchResults(query.query);
+  import { query, results } from '../js/state.svelte';
+  import Result from './Result.svelte';
+
+  async function getRecipes() {
+    const recipes = await results.loadSearchResults(query.query);
+
+    return $state.snapshot(results.recipes);
   }
 </script>
 
 <div class="search-results">
-  {#await getData() then data}
-    <p>{data}</p>
-  {/await}
   <ul class="results">
-    <!-- 
-      <li class="preview">
-        <a class="preview__link preview__link--active" href="#23456">
-          <figure class="preview__fig">
-            <img src="src/img/test-1.jpg" alt="Test" />
-          </figure>
-          <div class="preview__data">
-            <h4 class="preview__title">Pasta with Tomato Cream ...</h4>
-            <p class="preview__publisher">The Pioneer Woman</p>
-            <div class="preview__user-generated">
-              <svg>
-                <use href="{BASE}/img/icons.svg#icon-user"></use>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </li>
-       -->
+    {#await getRecipes()}
+      <p>Loading recipes...</p>
+    {:then recipes}
+      {#each recipes as recipe (recipe.id)}
+        <Result {recipe} />
+      {/each}
+    {/await}
   </ul>
 
   <div class="pagination">

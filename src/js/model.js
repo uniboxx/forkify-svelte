@@ -44,27 +44,7 @@ function createRecipeObject(data) {
 //   }
 // }
 
-export async function loadSearchResults(query) {
-  try {
-    const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
-    console.log(data);
-    return data;
 
-    // state.update(obj=>{obj.search.results = data.data.recipes.map((rec) => {
-    //   return {
-    //     id: rec.id,
-    //     title: rec.title,
-    //     publisher: rec.publisher,
-    //     image: rec.image_url,
-    //     ...(rec.key && { key: rec.key }),
-    //   };
-    // });
-    // state.update(obj=>obj.search.page = 1);
-  } catch (err) {
-    console.error(`${err} 💥💥💥💥`);
-    throw err;
-  }
-}
 
 export function getSearchResultsPage(page = state.search.page) {
   state.search.page = page;
