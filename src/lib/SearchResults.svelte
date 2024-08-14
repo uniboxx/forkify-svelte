@@ -1,106 +1,53 @@
-<script>
-  // IMPORTS
-
-  import { RES_PER_PAGE, API_URL, KEY } from '../js/config.js';
-  import { state } from '../js/model.js';
-  import { AJAX } from '../js/helpers';
-
-  import Spinner from './Spinner.svelte';
-  import Copyright from './Copyright.svelte';
-  import PreviewBookmark from './Preview_bookmark.svelte';
-
-  // VARIABLES
-
-  let numOfPages, highlight;
-  $: start = 10 * ($state.search.page - 1);
-  $: end = 10 * $state.search.page;
-
-  $: query = $state.search.query;
-  $: query && loadSearchResults(query);
-
-  async function loadSearchResults(query) {
-    try {
-      const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
-
-      const results = data.data?.recipes.map((rec) => {
-        return {
-          id: rec.id,
-          title: rec.title,
-          publisher: rec.publisher,
-          image: rec.image_url,
-          ...(rec.key && { key: rec.key }),
-          selected: false,
-        };
-      });
-
-      $state.search.results = results;
-      numOfPages = Math.ceil($state.search.results.length / RES_PER_PAGE);
-      $state.search.page = 1;
-
-      const id = window.location.hash.slice(1);
-      if (id) {
-        const selEl = $state.search.results.find((res) => res.id === id);
-        if (selEl) selEl.selected = true;
-      }
-    } catch (err) {
-      console.error(`${err} 💥💥💥💥`);
-      throw err;
-    }
-  }
-</script>
-
 <div class="search-results">
-  {#await loadSearchResults()}
-    <Spinner />
-  {:then results}
-    <ul class="results">
-      {#each $state.search.results.slice(start, end) as result}
-        <PreviewBookmark
-          selected={result.selected}
-          id={result.id}
-          image={result.image}
-          title={result.title}
-          publisher={result.publisher}
-          key={result.key}
-          {highlight}
-        />
-      {/each}
-    </ul>
-  {/await}
-  <!--- PAGINATION START -->
-  <div class="pagination">
-    {#if $state.search.results.length > RES_PER_PAGE}
-      {#if $state.search.page !== 1}
-        <button
-          class="btn--inline pagination__btn--prev"
-          on:click={() => $state.search.page--}
-        >
-          <svg class="search__icon">
-            <use href="src/img/icons.svg#icon-arrow-left" />
-          </svg>
-          <span>Page {$state.search.page - 1} / {numOfPages}</span>
-        </button>
-      {/if}
-      {#if $state.search.page !== numOfPages}
-        <button
-          class="btn--inline pagination__btn--next"
-          on:click={() => $state.search.page++}
-        >
-          <span>Page {$state.search.page + 1} / {numOfPages}</span>
-          <svg class="search__icon">
-            <use href="src/img/icons.svg#icon-arrow-right" />
-          </svg>
-        </button>
-      {/if}
-    {/if}
-  </div>
-  <!--- PAGINATION END -->
+  <ul class="results">
+    <!-- 
+      <li class="preview">
+        <a class="preview__link preview__link--active" href="#23456">
+          <figure class="preview__fig">
+            <img src="src/img/test-1.jpg" alt="Test" />
+          </figure>
+          <div class="preview__data">
+            <h4 class="preview__title">Pasta with Tomato Cream ...</h4>
+            <p class="preview__publisher">The Pioneer Woman</p>
+            <div class="preview__user-generated">
+              <svg>
+                <use href="src/img/icons.svg#icon-user"></use>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </li>
+       -->
+  </ul>
 
-  <Copyright />
+  <div class="pagination">
+    <!-- <button class="btn--inline pagination__btn--prev">
+        <svg class="search__icon">
+          <use href="src/img/icons.svg#icon-arrow-left"></use>
+        </svg>
+        <span>Page 1</span>
+      </button>
+      <button class="btn--inline pagination__btn--next">
+        <span>Page 3</span>
+        <svg class="search__icon">
+          <use href="src/img/icons.svg#icon-arrow-right"></use>
+        </svg>
+      </button> -->
+  </div>
+
+  <p class="copyright">
+    &copy; Copyright by
+    <a
+      class="twitter-link"
+      target="_blank"
+      href="https://twitter.com/jonasschmedtman">Jonas Schmedtmann</a
+    >. Use for learning or your portfolio. Don't use to teach. Don't claim as
+    your own.
+  </p>
 </div>
 
 <style lang="scss">
-  @import '../sass/base';
+  @use '../sass/variables';
 
   .search-results {
     padding: 3rem 0;
@@ -110,7 +57,7 @@
 
   .results {
     list-style: none;
-    // margin-bottom: 2rem;
+    margin-bottom: 2rem;
   }
 
   .pagination {
@@ -130,6 +77,18 @@
       &--next {
         float: right;
       }
+    }
+  }
+
+  .copyright {
+    color: variables.$color-grey-dark-2;
+    font-size: 1.2rem;
+    padding: 0 3.5rem;
+    margin-top: 4rem;
+
+    .twitter-link:link,
+    .twitter-link:visited {
+      color: variables.$color-grey-dark-2;
     }
   }
 </style>

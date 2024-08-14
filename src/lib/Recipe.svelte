@@ -1,203 +1,130 @@
-<script>
-  import { onMount } from 'svelte';
-  import icons from '../img/icons.svg';
-  import { API_URL, KEY } from '../js/config.js';
-  import { state } from '../js/model';
-  import { createRecipeObject, AJAX } from '../js/helpers';
-  import fracty from 'fracty';
-  import Spinner from './Spinner.svelte';
-
-  $: $state.bookmarks && persistBookmarks();
-  let hash, id, recipe, servings;
-
-  const persistBookmarks = function () {
-    localStorage.setItem('bookmarks', JSON.stringify($state.bookmarks));
-  };
-
-  function hashChange() {
-    hash = window.location.hash;
-    id = hash.slice(1);
-    if (id) loadRecipe(id);
-  }
-
-  export async function loadRecipe(id) {
-    try {
-      const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
-      $state.recipe = createRecipeObject(data);
-      recipe = $state.recipe;
-      servings = $state.recipe.servings;
-      // console.log(id);
-      // console.log($state.bookmarks);
-      if ($state.bookmarks?.some((bookmark) => bookmark.id === id)) {
-        $state.recipe.bookmarked = true;
-      } else $state.recipe.bookmarked = false;
-      // console.log($state.recipe);
-    } catch (err) {
-      console.error(`${err} 💥💥💥💥`);
-      throw err;
-    }
-  }
-  function bookmark() {
-    $state.recipe.bookmarked = $state.recipe.bookmarked ? false : true;
-    // console.log(id);
-
-    if ($state.recipe.bookmarked) {
-      $state.bookmarks = [...$state.bookmarks, recipe];
-      $state.bookmarks[$state.bookmarks.length - 1].selected = true;
-    } else {
-      const index = $state.bookmarks.findIndex((boo) => boo.id === id);
-      $state.bookmarks.splice(index, 1);
-    }
-    // console.log(recipe);
-    // console.log($state.bookmarks);
-  }
-
-  onMount(hashChange);
-</script>
-
-<svelte:window on:hashchange={hashChange} />
-
 <div class="recipe">
-  {#if !id}
-    <div class="message">
-      <div>
-        <svg>
-          <use href="{icons}#icon-smile" />
-        </svg>
-      </div>
-      <p>Start by searching for a recipe or an ingredient. Have fun!</p>
+  <div class="message">
+    <div>
+      <svg>
+        <use href="src/img/icons.svg#icon-smile"></use>
+      </svg>
     </div>
-  {:else if !$state.recipe.id}
-    <div class="error">
-      <div>
-        <svg>
-          <use href="src/img/icons.svg#icon-alert-triangle" />
-        </svg>
-      </div>
-      <p>No recipes found for your query. Please try again!</p>
-    </div>
-  {:else}
-    {#await hashChange}
-      <Spinner />
-    {:then result}
-      <figure class="recipe__fig">
-        <img
-          src={$state.recipe.image}
-          alt={$state.recipe.title}
-          class="recipe__img"
-        />
-        <h1 class="recipe__title">
-          <span>{$state.recipe.title}</span>
-        </h1>
-      </figure>
+    <p>Start by searching for a recipe or an ingredient. Have fun!</p>
+  </div>
 
-      <div class="recipe__details">
-        <div class="recipe__info">
-          <svg class="recipe__info-icon">
-            <use href="{icons}#icon-clock" />
-          </svg>
-          <span class="recipe__info-data recipe__info-data--minutes"
-            >{$state.recipe.cookingTime}</span
-          >
-          <span class="recipe__info-text">minutes</span>
-        </div>
-        <div class="recipe__info">
-          <svg class="recipe__info-icon">
-            <use href="src/img/icons.svg#icon-users" />
-          </svg>
-          <span class="recipe__info-data recipe__info-data--people"
-            >{$state.recipe.servings}</span
-          >
-          <span class="recipe__info-text">servings</span>
+  <!-- <div class="spinner">
+      <svg>
+        <use href="src/img/icons.svg#icon-loader"></use>
+      </svg>
+    </div> -->
 
-          <div class="recipe__info-buttons">
-            <button
-              class="btn--tiny btn--update-servings"
-              on:click={() => {
-                if ($state.recipe.servings > 1) $state.recipe.servings--;
-              }}
-            >
-              <svg>
-                <use href="{icons}#icon-minus-circle" />
-              </svg>
-            </button>
-            <button
-              class="btn--tiny btn--update-servings"
-              on:click={() => $state.recipe.servings++}
-            >
-              <svg>
-                <use href="{icons}#icon-plus-circle" />
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div class="recipe__user-generated {$state.recipe.key ? '' : 'hidden'}">
+  <!-- <div class="error">
+        <div>
           <svg>
-            <use href="{icons}#icon-user" />
+            <use href="src/img/icons.svg#icon-alert-triangle"></use>
           </svg>
         </div>
-        <button class="btn--round" on:click={bookmark}>
-          <svg class="">
-            <use
-              href="{icons}#icon-bookmark{$state.recipe.bookmarked
-                ? '-fill'
-                : ''}"
-            />
-          </svg>
-        </button>
+        <p>No recipes found for your query. Please try again!</p>
+      </div> -->
+
+  <!--
+    <figure class="recipe__fig">
+      <img src="src/img/test-1.jpg" alt="Tomato" class="recipe__img" />
+      <h1 class="recipe__title">
+        <span>Pasta with tomato cream sauce</span>
+      </h1>
+    </figure>
+
+    <div class="recipe__details">
+      <div class="recipe__info">
+        <svg class="recipe__info-icon">
+          <use href="src/img/icons.svg#icon-clock"></use>
+        </svg>
+        <span class="recipe__info-data recipe__info-data--minutes">45</span>
+        <span class="recipe__info-text">minutes</span>
+      </div>
+      <div class="recipe__info">
+        <svg class="recipe__info-icon">
+          <use href="src/img/icons.svg#icon-users"></use>
+        </svg>
+        <span class="recipe__info-data recipe__info-data--people">4</span>
+        <span class="recipe__info-text">servings</span>
+
+        <div class="recipe__info-buttons">
+          <button class="btn--tiny btn--increase-servings">
+            <svg>
+              <use href="src/img/icons.svg#icon-minus-circle"></use>
+            </svg>
+          </button>
+          <button class="btn--tiny btn--increase-servings">
+            <svg>
+              <use href="src/img/icons.svg#icon-plus-circle"></use>
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <div class="recipe__ingredients">
-        <h2 class="heading--2">Recipe ingredients</h2>
-        <ul class="recipe__ingredient-list">
-          {#each $state.recipe.ingredients as ingredient}
-            <li class="recipe__ingredient">
-              <svg class="recipe__icon">
-                <use href="{icons}#icon-check" />
-              </svg>
-              <div class="recipe__quantity">
-                {(ingredient.quantity / servings) * $state.recipe.servings
-                  ? fracty(
-                      (ingredient.quantity / servings) * $state.recipe.servings
-                    )
-                  : ''}
-              </div>
-              <div class="recipe__description">
-                <span class="recipe__unit">{ingredient.unit}</span>
-                {ingredient.description}
-              </div>
-            </li>
-          {/each}
-        </ul>
+      <div class="recipe__user-generated">
+        <svg>
+          <use href="src/img/icons.svg#icon-user"></use>
+        </svg>
       </div>
+      <button class="btn--round">
+        <svg class="">
+          <use href="src/img/icons.svg#icon-bookmark-fill"></use>
+        </svg>
+      </button>
+    </div>
 
-      <div class="recipe__directions">
-        <h2 class="heading--2">How to cook it</h2>
-        <p class="recipe__directions-text">
-          This recipe was carefully designed and tested by
-          <span class="recipe__publisher">{$state.recipe.publisher}</span>.
-          Please check out directions at their website.
-        </p>
-        <a
-          class="btn--small recipe__btn"
-          href={$state.recipe.sourceUrl}
-          target="_blank"
-        >
-          <span>Directions</span>
-          <svg class="search__icon">
-            <use href="{icons}#icon-arrow-right" />
+    <div class="recipe__ingredients">
+      <h2 class="heading--2">Recipe ingredients</h2>
+      <ul class="recipe__ingredient-list">
+        <li class="recipe__ingredient">
+          <svg class="recipe__icon">
+            <use href="src/img/icons.svg#icon-check"></use>
           </svg>
-        </a>
-      </div>
-    {/await}
-  {/if}
+          <div class="recipe__quantity">1000</div>
+          <div class="recipe__description">
+            <span class="recipe__unit">g</span>
+            pasta
+          </div>
+        </li>
+
+        <li class="recipe__ingredient">
+          <svg class="recipe__icon">
+            <use href="src/img/icons.svg#icon-check"></use>
+          </svg>
+          <div class="recipe__quantity">0.5</div>
+          <div class="recipe__description">
+            <span class="recipe__unit">cup</span>
+            ricotta cheese
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="recipe__directions">
+      <h2 class="heading--2">How to cook it</h2>
+      <p class="recipe__directions-text">
+        This recipe was carefully designed and tested by
+        <span class="recipe__publisher">The Pioneer Woman</span>. Please check out
+        directions at their website.
+      </p>
+      <a
+        class="btn--small recipe__btn"
+        href="http://thepioneerwoman.com/cooking/pasta-with-tomato-cream-sauce/"
+        target="_blank"
+      >
+        <span>Directions</span>
+        <svg class="search__icon">
+          <use href="src/img/icons.svg#icon-arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+    -->
 </div>
 
 <style lang="scss">
-  @import '../sass/base';
-  @import '../sass/components';
+  @use '../sass/variables';
+
   .recipe {
-    background-color: $color-grey-light-1;
+    background-color: variables.$color-grey-light-1;
 
     ///////////
     // FIGURE
@@ -217,8 +144,8 @@
         left: 0;
         background-image: linear-gradient(
           to right bottom,
-          $color-grad-1,
-          $color-grad-2
+          variables.$color-grad-1,
+          variables.$color-grad-2
         );
         opacity: 0.6;
       }
@@ -250,12 +177,12 @@
         padding: 1.3rem 2rem;
         background-image: linear-gradient(
           to right bottom,
-          $color-grad-1,
-          $color-grad-2
+          variables.$color-grad-1,
+          variables.$color-grad-2
         );
       }
 
-      @media only screen and (max-width: $bp-medium) {
+      @media only screen and (max-width: variables.$bp-medium) {
         width: 70%;
       }
     }
@@ -282,7 +209,7 @@
     &__info-icon {
       height: 2.35rem;
       width: 2.35rem;
-      fill: $color-primary;
+      fill: variables.$color-primary;
       margin-right: 1.15rem;
     }
 
@@ -298,7 +225,7 @@
     }
 
     &__user-generated {
-      background-color: darken($color-grey-light-2, 2%);
+      background-color: darken(variables.$color-grey-light-2, 2%);
 
       display: flex;
       align-items: center;
@@ -313,7 +240,7 @@
       svg {
         height: 2.25rem;
         width: 2.25rem;
-        fill: $color-primary;
+        fill: variables.$color-primary;
       }
     }
 
@@ -323,7 +250,7 @@
       padding: 5rem 8rem;
       font-size: 1.6rem;
       line-height: 1.4;
-      background-color: $color-grey-light-2;
+      background-color: variables.$color-grey-light-2;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -343,7 +270,7 @@
     &__icon {
       height: 2rem;
       width: 2rem;
-      fill: $color-primary;
+      fill: variables.$color-primary;
       margin-right: 1.1rem;
       flex: 0 0 auto;
       margin-top: 0.1rem;
@@ -368,7 +295,7 @@
       font-size: 1.7rem;
       text-align: center;
       margin-bottom: 3.5rem;
-      color: $color-grey-dark-2;
+      color: variables.$color-grey-dark-2;
     }
 
     &__publisher {
