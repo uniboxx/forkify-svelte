@@ -2,12 +2,16 @@ import { API_URL, RES_PER_PAGE, KEY } from './config.js';
 import { AJAX } from './helpers.js';
 
 function createSearches() {
+  const resultsPerPage = RES_PER_PAGE;
+
   let query = $state('');
   let recipes = $state([]);
+  let loaded = $state(false);
   let urlId = $state(window.location.hash.slice(1));
   let page = $state(1);
+  let numOfPages = $derived(Math.ceil(recipes.length / resultsPerPage));
 
-  async function loadSearchResults(query) {
+  async function loadSearchResults() {
     try {
       const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
       // console.log(data.data.recipes);
@@ -19,6 +23,7 @@ function createSearches() {
         image: rec.image_url,
         ...(rec.key && { key: rec.key }),
       }));
+      query = '';
 
       // state.update(obj=>obj.search.page = 1);
     } catch (err) {
@@ -26,6 +31,15 @@ function createSearches() {
       throw err;
     }
   }
+
+  function getSearchResultsPage(selectedPage = page) {
+    page = selectedPage;
+
+    const start = (page - 1) * resultsPerPage; // 0;
+    const end = page * resultsPerPage; // 9;
+    return recipes.slice(start, end);
+  }
+
   return {
     get query() {
       return query;
@@ -36,13 +50,29 @@ function createSearches() {
     get recipes() {
       return recipes;
     },
+    get loaded() {
+      return loaded;
+    },
+    set loaded(value) {
+      loaded = value;
+    },
     get urlId() {
       return urlId;
     },
     set urlId(value) {
       urlId = value;
     },
+    get page() {
+      return page;
+    },
+    set page(value) {
+      page = value;
+    },
+    get numOfPages() {
+      return numOfPages;
+    },
     loadSearchResults,
+    getSearchResultsPage,
   };
 }
 export const searchState = createSearches();

@@ -1,23 +1,25 @@
 <script>
   // @ts-nocheck
-  import { base } from '../js/config';
+  import { onMount } from 'svelte';
+  import { base, RES_PER_PAGE } from '../js/config';
   import { searchState } from '../js/state.svelte';
+  import Pagination from './Pagination.svelte';
   import Result from './Result.svelte';
   import Spinner from './Spinner.svelte';
 
-  async function getRecipes() {
-    if (!searchState.query) return;
-    // console.log(searchState.query);
+  async function getRecipes(page) {
+    if (searchState.query) await searchState.loadSearchResults();
 
-    await searchState.loadSearchResults(searchState.query);
-
-    return $state.snapshot(searchState.recipes);
+    return $state.snapshot(searchState.getSearchResultsPage(page));
+  }
+  function getPageResults(page) {
+    return $state.snapshot(searchState.getSearchResultsPage(page));
   }
 </script>
 
 <div class="search-results">
   <ul class="results">
-    {#await getRecipes()}
+    {#await getRecipes(searchState.page)}
       <Spinner />
     {:then recipes}
       {#each recipes as recipe (recipe.id)}
@@ -26,20 +28,7 @@
     {/await}
   </ul>
 
-  <!-- <div class="pagination">
-    <button class="btn--inline pagination__btn--prev">
-        <svg class="search__icon">
-          <use href="{base}/img/icons.svg#icon-arrow-left"></use>
-        </svg>
-        <span>Page 1</span>
-      </button>
-      <button class="btn--inline pagination__btn--next">
-        <span>Page 3</span>
-        <svg class="search__icon">
-          <use href="{base}/img/icons.svg#icon-arrow-right"></use>
-        </svg>
-      </button>
-  </div> -->
+  <Pagination page={searchState.page} />
 
   <p class="copyright">
     &copy; Copyright by
@@ -65,26 +54,6 @@
     list-style: none;
     margin-bottom: 2rem;
   }
-
-  /* .pagination {
-    margin-top: auto;
-    padding: 0 3.5rem;
-
-    &::after {
-      content: '';
-      display: table;
-      clear: both;
-    }
-
-    &__btn {
-      &--prev {
-        float: left;
-      }
-      &--next {
-        float: right;
-      }
-    }
-  } */
 
   .copyright {
     color: variables.$color-grey-dark-2;
