@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
 import { AJAX } from './helpers.js';
 
@@ -76,3 +77,59 @@ function createSearches() {
   };
 }
 export const searchState = createSearches();
+
+function createRecipe() {
+  let recipe = $state({});
+  let bookmarks = $state([]);
+
+  function createRecipeObject(data) {
+    const { recipe } = data.data;
+    return {
+      id: recipe.id,
+      title: recipe.title,
+      publisher: recipe.publisher,
+      sourceUrl: recipe.source_url,
+      image: recipe.image_url,
+      servings: recipe.servings,
+      cookingTime: recipe.cooking_time,
+      ingredients: recipe.ingredients,
+      ...(recipe.key && { key: recipe.key }),
+    };
+  }
+
+  async function loadRecipe(id) {
+    try {
+      //- RECUPERARE UNA RICETTA DA API (288)
+      const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
+
+      recipe = createRecipeObject(data);
+
+      if (bookmarks.some(bookmark => bookmark.id === id)) {
+        recipe.bookmarked = true;
+      } else recipe.bookmarked = false;
+
+      // console.log(recipe);
+    } catch (err) {
+      console.error(`${err} 💥💥💥💥`);
+      throw err;
+    }
+  }
+
+  return {
+    get recipe() {
+      return recipe;
+    },
+    set recipe(value) {
+      recipe = value;
+    },
+    get bookmarks() {
+      return bookmarks;
+    },
+    set bookmarks(value) {
+      bookmarks = value;
+    },
+    loadRecipe,
+  };
+}
+
+export const recipeState = createRecipe();

@@ -1,5 +1,5 @@
 <script>
-  import { base } from '../js/config';
+  import { icons } from '../js/config';
 </script>
 
 <nav class="nav">
@@ -7,7 +7,7 @@
     <li class="nav__item">
       <button class="nav__btn nav__btn--add-recipe">
         <svg class="nav__icon">
-          <use href="{base}/img/icons.svg#icon-edit"></use>
+          <use href={`${icons}#icon-edit`}></use>
         </svg>
         <span>Add recipe</span>
       </button>
@@ -15,7 +15,7 @@
     <li class="nav__item">
       <button class="nav__btn nav__btn--bookmarks">
         <svg class="nav__icon">
-          <use href="{base}/img/icons.svg#icon-bookmark"></use>
+          <use href="{icons}#icon-bookmark"></use>
         </svg>
         <span>Bookmarks</span>
       </button>
@@ -24,7 +24,7 @@
           <div class="message">
             <div>
               <svg>
-                <use href="{base}/img/icons.svg#icon-smile"></use>
+                <use href="{icons}#icon-smile"></use>
               </svg>
             </div>
             <p>No bookmarks yet. Find a nice recipe and bookmark it :)</p>

@@ -7,7 +7,7 @@
   import Result from './Result.svelte';
   import Spinner from './Spinner.svelte';
 
-  async function getRecipes(page) {
+  async function getPreviews(page) {
     if (searchState.query) await searchState.loadSearchResults();
 
     return $state.snapshot(searchState.getSearchResultsPage(page));
@@ -19,11 +19,11 @@
 
 <div class="search-results">
   <ul class="results">
-    {#await getRecipes(searchState.page)}
+    {#await getPreviews(searchState.page)}
       <Spinner />
-    {:then recipes}
-      {#each recipes as recipe (recipe.id)}
-        <Result {recipe} {onclick} />
+    {:then previews}
+      {#each previews as preview (preview.id)}
+        <Result {preview} {onclick} />
       {/each}
     {/await}
   </ul>
