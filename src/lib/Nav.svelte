@@ -1,5 +1,7 @@
 <script>
   import { icons } from '../js/config';
+  import { recipeState, searchState } from '../js/state.svelte';
+  import Preview from './Preview.svelte';
 </script>
 
 <nav class="nav">
@@ -21,28 +23,20 @@
       </button>
       <div class="bookmarks">
         <ul class="bookmarks__list">
-          <div class="message">
-            <div>
-              <svg>
-                <use href="{icons}#icon-smile"></use>
-              </svg>
+          {#if !recipeState.bookmarks.length}
+            <div class="message">
+              <div>
+                <svg>
+                  <use href="{icons}#icon-smile"></use>
+                </svg>
+              </div>
+              <p>No bookmarks yet. Find a nice recipe and bookmark it :)</p>
             </div>
-            <p>No bookmarks yet. Find a nice recipe and bookmark it :)</p>
-          </div>
-
-          <!-- <li class="preview">
-              <a class="preview__link" href="#23456">
-                <figure class="preview__fig">
-                  <img src="src/img/test-1.jpg" alt="Test" />
-                </figure>
-                <div class="preview__data">
-                  <h4 class="preview__name">
-                    Pasta with Tomato Cream ...
-                  </h4>
-                  <p class="preview__publisher">The Pioneer Woman</p>
-                </div>
-              </a>
-            </li> -->
+          {:else}
+            {#each recipeState.bookmarks as bookmark (bookmark.id)}
+              <Preview preview={bookmark} urlId={searchState.urlId} {onclick} />
+            {/each}
+          {/if}
         </ul>
       </div>
     </li>
@@ -51,6 +45,28 @@
 
 <style lang="scss">
   @use '../sass/variables';
+
+  .message {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 5rem 4rem;
+
+    display: flex;
+
+    svg {
+      height: 3rem;
+      width: 3rem;
+      fill: variables.$color-primary;
+      transform: translateY(-0.3rem);
+    }
+
+    p {
+      margin-left: 1.5rem;
+      font-size: 1.8rem;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+  }
 
   .nav {
     align-self: stretch;

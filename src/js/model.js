@@ -61,26 +61,26 @@ export const state = {
 //   state.recipe.servings = newServings;
 // }
 
-function persistBookmarks() {
-  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
-}
+// function persistBookmarks() {
+//   localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+// }
 
-export function addBookmark(recipe) {
-  // add bookmark
-  state.bookmarks.push(recipe);
+// export function addBookmark(recipe) {
+//   // add bookmark
+//   state.bookmarks.push(recipe);
 
-  // mark current recipe as bookmarked
-  if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
-  persistBookmarks();
-}
+//   // mark current recipe as bookmarked
+//   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+//   persistBookmarks();
+// }
 
-export function deleteBookmark(id) {
-  const index = state.bookmarks.findIndex(bookmark => bookmark.id === id);
-  state.bookmarks.splice(index, 1);
-  // mark current recipe as NOT bookmarked
-  if (id === state.recipe.id) state.recipe.bookmarked = false;
-  persistBookmarks();
-}
+// export function deleteBookmark(id) {
+//   const index = state.bookmarks.findIndex(bookmark => bookmark.id === id);
+//   state.bookmarks.splice(index, 1);
+//   // mark current recipe as NOT bookmarked
+//   if (id === state.recipe.id) state.recipe.bookmarked = false;
+//   persistBookmarks();
+// }
 
 function init() {
   const storage = localStorage.getItem('bookmarks');

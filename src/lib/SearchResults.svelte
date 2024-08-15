@@ -4,7 +4,7 @@
   import { base, RES_PER_PAGE } from '../js/config';
   import { searchState } from '../js/state.svelte';
   import Pagination from './Pagination.svelte';
-  import Result from './Result.svelte';
+  import Preview from './Preview.svelte';
   import Spinner from './Spinner.svelte';
 
   async function getPreviews(page) {
@@ -23,7 +23,7 @@
       <Spinner />
     {:then previews}
       {#each previews as preview (preview.id)}
-        <Result {preview} {onclick} />
+        <Preview {preview} {onclick} />
       {/each}
     {/await}
   </ul>

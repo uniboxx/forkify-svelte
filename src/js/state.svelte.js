@@ -80,7 +80,7 @@ export const searchState = createSearches();
 
 function createRecipe() {
   let recipe = $state({});
-  let bookmarks = $state([]);
+  let bookmarks = $state(JSON.parse(localStorage.getItem('bookmarks')) || []);
 
   function createRecipeObject(data) {
     const { recipe } = data.data;
@@ -123,13 +123,38 @@ function createRecipe() {
     recipe.servings = newServings;
   }
 
+  function persistBookmarks() {
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  }
+  function addBookmark(recipe) {
+    // add bookmark
+    bookmarks.push(recipe);
+
+    // mark current recipe as bookmarked
+    recipe.bookmarked = true;
+    persistBookmarks();
+    console.log(bookmarks);
+  }
+
+  function deleteBookmark(id) {
+    const index = bookmarks.findIndex(bookmark => bookmark.id === recipe.id);
+    bookmarks.splice(index, 1);
+    // mark current recipe as NOT bookmarked
+    recipe.bookmarked = false;
+    persistBookmarks();
+  }
+
   return {
     get recipe() {
       return recipe;
     },
-    bookmarks,
+    get bookmarks() {
+      return bookmarks;
+    },
     loadRecipe,
     updateServings,
+    addBookmark,
+    deleteBookmark,
   };
 }
 

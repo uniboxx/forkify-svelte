@@ -6,7 +6,8 @@
   import Ingredient from './Ingredient.svelte';
   import Spinner from './Spinner.svelte';
 
-  const { loadRecipe, updateServings } = recipeState;
+  const { loadRecipe, updateServings, addBookmark, deleteBookmark } =
+    recipeState;
 
   async function getRecipe() {
     await loadRecipe(searchState.urlId);
@@ -23,6 +24,12 @@
   }
   function increaseServings() {
     recipeState.updateServings(recipeState.recipe.servings + 1);
+  }
+  function handleBookmarkBtn() {
+    if (recipeState.recipe.bookmarked === false)
+      addBookmark(recipeState.recipe);
+    else if (recipeState.recipe.bookmarked === true)
+      deleteBookmark(recipeState.recipe.id);
   }
 </script>
 
@@ -91,7 +98,7 @@
             <use href={`${icons}#icon-user`}></use>
           </svg>
         </div>
-        <button class="btn--round">
+        <button class="btn--round" onclick={handleBookmarkBtn}>
           <svg class="">
             <use
               href={`${icons}#icon-bookmark${recipe.bookmarked ? '-fill' : ''}`}
