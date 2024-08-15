@@ -134,6 +134,10 @@
   .recipe {
     background-color: variables.$color-grey-light-1;
 
+    @media only screen and (max-width: variables.$bp-small) {
+      width: 100%;
+    }
+
     ///////////
     // FIGURE
     &__fig {
@@ -201,6 +205,12 @@
       display: flex;
       align-items: center;
       padding: 7.5rem 8rem 3.5rem 8rem;
+      flex-wrap: wrap;
+
+      @media only screen and (max-width: variables.$bp-small) {
+        padding: 0.5rem;
+        margin-top: 5ch;
+      }
     }
 
     &__info {
@@ -210,7 +220,7 @@
       align-items: center;
 
       &:not(:last-child) {
-        margin-right: 4.5rem;
+        padding-right: 4.5rem;
       }
     }
 
@@ -266,6 +276,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      @media only screen and (max-width: variables.$bp-small) {
+        padding: 2rem 1rem;
+        font-size: 1.2rem;
+      }
     }
 
     &__ingredient-list {
@@ -283,13 +298,22 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      @media only screen and (max-width: variables.$bp-small) {
+        padding: 0.5rem;
+        margin: 2rem 1rem;
+      }
     }
 
     &__directions-text {
       font-size: 1.7rem;
       text-align: center;
       margin-bottom: 3.5rem;
+      /* white-space: pre-wrap; */
       color: variables.$color-grey-dark-2;
+      @media only screen and (max-width: variables.$bp-small) {
+        text-align: start;
+        padding: 1rem;
+      }
     }
 
     &__publisher {

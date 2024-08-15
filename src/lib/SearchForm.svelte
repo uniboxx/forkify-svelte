@@ -13,13 +13,12 @@
   }
 </script>
 
-<form class="search" onsubmit={handleSubmit}>
+<form class="search" onsubmit="{handleSubmit}">
   <input
     type="text"
     class="search__field"
     placeholder="Search over 1,000,000 recipes..."
-    bind:value={input}
-  />
+    bind:value="{input}" />
   <button class="btn search__btn">
     <svg class="search__icon">
       <use href="/img/icons.svg#icon-search"></use>
@@ -39,6 +38,10 @@
     padding-left: 3rem;
     transition: all 0.3s;
 
+    @media only screen and (max-width: variables.$bp-smallest) {
+      width: 100%;
+    }
+
     &:focus-within {
       transform: translateY(-2px);
       box-shadow: 0 0.7rem 3rem rgba(variables.$color-grey-dark-1, 0.08);
@@ -50,7 +53,7 @@
       font-family: inherit;
       color: inherit;
       font-size: 1.7rem;
-      width: 30rem;
+      max-width: 30rem;
 
       &:focus {
         outline: none;
@@ -59,19 +62,24 @@
       &::placeholder {
         color: variables.$color-grey-light-3;
       }
-
-      @media only screen and (max-width: variables.$bp-medium) {
-        width: auto;
-
-        &::placeholder {
-          color: white;
-        }
-      }
     }
 
     &__btn {
       font-weight: 600;
       font-family: inherit;
+    }
+    @media only screen and (max-width: variables.$bp-small) {
+      &__field {
+        max-width: 50%;
+      }
+      &__btn {
+        max-width: 40%;
+        padding: 0.5rem 1rem;
+        margin-left: auto;
+      }
+    }
+    @media only screen and (max-width: variables.$bp-medium) {
+      padding-right: 2rem;
     }
   }
 </style>

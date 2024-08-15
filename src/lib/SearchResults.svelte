@@ -28,7 +28,7 @@
     {/await}
   </ul>
 
-  <Pagination page={searchState.page} />
+  <Pagination page="{searchState.page}" />
 
   <p class="copyright">
     &copy; Copyright by
@@ -60,6 +60,11 @@
     font-size: 1.2rem;
     padding: 0 3.5rem;
     margin-top: 4rem;
+    white-space: pre-wrap;
+
+    @media only screen and (max-width: variables.$bp-small) {
+      padding: 0.5rem;
+    }
 
     .twitter-link:link,
     .twitter-link:visited {

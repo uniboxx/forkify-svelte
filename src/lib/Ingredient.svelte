@@ -7,7 +7,7 @@
 
 <li class="recipe__ingredient">
   <svg class="recipe__icon">
-    <use href={`${icons}#icon-check`}></use>
+    <use href="{`${icons}#icon-check`}"></use>
   </svg>
   <div class="recipe__quantity">
     {ingredient.quantity ? fracty(ingredient.quantity) : ''}
@@ -30,13 +30,13 @@
       height: 2rem;
       width: 2rem;
       fill: variables.$color-primary;
-      margin-right: 1.1rem;
+      padding-right: 1.1rem;
       flex: 0 0 auto;
       margin-top: 0.1rem;
     }
 
     &__quantity {
-      margin-right: 0.5rem;
+      padding-right: 0.5rem;
       flex: 0 0 auto;
     }
   }

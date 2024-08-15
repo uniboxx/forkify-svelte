@@ -12,19 +12,18 @@
 
 <li class="preview">
   <a
-    class={`preview__link ${searchState.urlId === id && 'preview__link--active'}`}
-    href={`#${id}`}
-    onclick={handleClick}
-  >
+    class="{`preview__link ${searchState.urlId === id && 'preview__link--active'}`}"
+    href="{`#${id}`}"
+    onclick="{handleClick}">
     <figure class="preview__fig">
-      <img src={image} alt={title} />
+      <img src="{image}" alt="{title}" />
     </figure>
     <div class="preview__data">
       <h4 class="preview__title">{title}</h4>
       <p class="preview__publisher">{publisher}</p>
-      <div class={`preview__user-generated ${key ? '' : 'hidden'}`}>
+      <div class="{`preview__user-generated ${key ? '' : 'hidden'}`}">
         <svg>
-          <use href={`${icons}#icon-user`}></use>
+          <use href="{`${icons}#icon-user`}"></use>
         </svg>
       </div>
     </div>

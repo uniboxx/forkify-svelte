@@ -10,10 +10,9 @@
     <li class="nav__item">
       <button
         class="nav__btn nav__btn--add-recipe"
-        onclick={() => (modalState.isOpen = true)}
-      >
+        onclick="{() => (modalState.isOpen = true)}">
         <svg class="nav__icon">
-          <use href={`${icons}#icon-edit`}></use>
+          <use href="{`${icons}#icon-edit`}"></use>
         </svg>
         <span>Add recipe</span>
       </button>
@@ -29,16 +28,17 @@
         <ul class="bookmarks__list">
           {#if !recipeState.bookmarks.length}
             <Message
-              text="No bookmarks yet. Find a nice recipe and bookmark it :)"
-            />
+              text="No bookmarks yet. Find a nice recipe and bookmark it :)" />
           {:else}
             {#each recipeState.bookmarks as bookmark (bookmark.id)}
-              <Preview preview={bookmark} urlId={searchState.urlId} {onclick} />
+              <Preview
+                preview="{bookmark}"
+                urlId="{searchState.urlId}"
+                {onclick} />
             {/each}
             <button
               id="clearBookmarks"
-              onclick={() => recipeState.clearBookmarks()}
-            >
+              onclick="{() => recipeState.clearBookmarks()}">
               Clear Bookmarks
             </button>
           {/if}
@@ -53,7 +53,8 @@
 
   .nav {
     align-self: stretch;
-    margin-right: 2.5rem;
+    padding-right: 2.5rem;
+    margin-left: auto;
 
     &__list {
       list-style: none;
@@ -85,7 +86,7 @@
         height: 2.4rem;
         width: 2.4rem;
         fill: variables.$color-primary;
-        margin-right: 0.7rem;
+        padding-right: 0.7rem;
         transform: translateY(-1px);
       }
 
@@ -96,6 +97,9 @@
       &:hover {
         background-color: variables.$color-grey-light-2;
       }
+    }
+    @media only screen and (max-width: variables.$bp-smallest) {
+      margin: 2rem 1rem 1rem auto;
     }
   }
 
@@ -132,9 +136,13 @@
     } */
 
     &:hover,
-    .nav__btn--bookmarks:hover + & {
+    .nav__btn--bookmarks:hover + &,
+    .nav__btn--bookmarks:focus + &,
+    .nav__btn--bookmarks:active + & {
       visibility: visible;
       opacity: 1;
+    }
+    @media only screen and (max-width: variables.$bp-medium) {
     }
   }
   #clearBookmarks {

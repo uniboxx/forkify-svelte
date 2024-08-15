@@ -98,11 +98,24 @@
     grid-template-columns: 1fr 1fr;
     gap: 4rem 6rem;
 
+    @media only screen and (max-width: variables.$bp-820) {
+      grid-template-columns: 1fr;
+      justify-content: center;
+      justify-items: center;
+      gap: 2rem 3rem;
+    }
+
     &__column {
       display: grid;
       grid-template-columns: 1fr 2.8fr;
       align-items: center;
       gap: 1.5rem;
+
+      @media only screen and (max-width: variables.$bp-820) {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        justify-content: center;
+      }
 
       & label {
         font-size: 1.5rem;

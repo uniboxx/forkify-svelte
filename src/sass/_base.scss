@@ -8,11 +8,11 @@
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
+  max-width: 100svw;
 }
 
 html {
-  box-sizing: border-box;
   font-size: 62.5%;
 
   @media only screen and (max-width: $bp-medium) {
@@ -49,7 +49,16 @@ body {
 
   @media only screen and (max-width: $bp-large) {
     max-width: 100%;
-    margin: 0;
+    padding: 0 0.5rem;
     border-radius: 0;
+    overflow: auto;
+  }
+  @media only screen and (max-width: $bp-820) {
+    grid-template-rows: 10rem auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "head "
+      "list"
+      "recipe";
   }
 }

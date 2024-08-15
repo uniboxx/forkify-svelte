@@ -9,8 +9,6 @@
   let isSubmitted = $state(false);
   let formData = $state({});
 
-  const { uploadRecipe } = recipeState;
-
   function handleSubmit(e) {
     e.preventDefault();
     const dataArr = [...new FormData(this)];
@@ -75,6 +73,14 @@
     box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
     z-index: 1000;
     transition: all 0.5s;
+
+    @media only screen and (max-width: variables.$bp-820) {
+      top: 0;
+      left: 0;
+      transform: translate(0, 0);
+      width: 100%;
+      padding: 1rem;
+    }
 
     .btn--close-modal {
       font-family: inherit;
