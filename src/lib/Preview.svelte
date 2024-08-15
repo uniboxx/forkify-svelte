@@ -60,7 +60,7 @@
       border-radius: 50%;
       overflow: hidden;
       height: 5.8rem;
-      padding-right: 2rem;
+      margin-right: 2rem;
       position: relative;
       backface-visibility: hidden;
 
