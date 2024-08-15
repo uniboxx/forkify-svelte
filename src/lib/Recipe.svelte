@@ -6,13 +6,23 @@
   import Ingredient from './Ingredient.svelte';
   import Spinner from './Spinner.svelte';
 
-  async function getRecipe() {
-    // console.log(searchState.urlId);
-    await recipeState.loadRecipe(searchState.urlId);
+  const { loadRecipe, updateServings } = recipeState;
 
-    const recipe = $state.snapshot(recipeState.recipe);
+  async function getRecipe() {
+    await loadRecipe(searchState.urlId);
+
+    const { recipe } = recipeState;
+
     console.log(recipe);
     return recipe;
+  }
+
+  function decreaseServings() {
+    if (recipeState.recipe.servings > 1)
+      recipeState.updateServings(recipeState.recipe.servings - 1);
+  }
+  function increaseServings() {
+    recipeState.updateServings(recipeState.recipe.servings + 1);
   }
 </script>
 
@@ -57,12 +67,18 @@
           <span class="recipe__info-text">servings</span>
 
           <div class="recipe__info-buttons">
-            <button class="btn--tiny btn--increase-servings">
+            <button
+              class="btn--tiny btn--decrease-servings"
+              onclick={decreaseServings}
+            >
               <svg>
                 <use href={`${icons}#icon-minus-circle`}></use>
               </svg>
             </button>
-            <button class="btn--tiny btn--increase-servings">
+            <button
+              class="btn--tiny btn--increase-servings"
+              onclick={increaseServings}
+            >
               <svg>
                 <use href={`${icons}#icon-plus-circle`}></use>
               </svg>

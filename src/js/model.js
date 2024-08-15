@@ -12,20 +12,20 @@ export const state = {
   bookmarks: [],
 };
 
-function createRecipeObject(data) {
-  const { recipe } = data.data;
-  return {
-    id: recipe.id,
-    title: recipe.title,
-    publisher: recipe.publisher,
-    sourceUrl: recipe.source_url,
-    image: recipe.image_url,
-    servings: recipe.servings,
-    cookingTime: recipe.cooking_time,
-    ingredients: recipe.ingredients,
-    ...(recipe.key && { key: recipe.key }),
-  };
-}
+// function createRecipeObject(data) {
+//   const { recipe } = data.data;
+//   return {
+//     id: recipe.id,
+//     title: recipe.title,
+//     publisher: recipe.publisher,
+//     sourceUrl: recipe.source_url,
+//     image: recipe.image_url,
+//     servings: recipe.servings,
+//     cookingTime: recipe.cooking_time,
+//     ingredients: recipe.ingredients,
+//     ...(recipe.key && { key: recipe.key }),
+//   };
+// }
 
 // export async function loadRecipe(id) {
 //   try {
@@ -44,24 +44,22 @@ function createRecipeObject(data) {
 //   }
 // }
 
+// export function getSearchResultsPage(page = state.search.page) {
+//   state.search.page = page;
 
+//   const start = (page - 1) * state.search.resultsPerPage; // 0;
+//   const end = page * state.search.resultsPerPage; // 9;
+//   return state.search.results.slice(start, end);
+// }
 
-export function getSearchResultsPage(page = state.search.page) {
-  state.search.page = page;
+// export function updateServings(newServings) {
+//   state.recipe.ingredients.forEach((ing) => {
+//     ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+//     // newQt = oldQt * newServings/oldServings //
+//   });
 
-  const start = (page - 1) * state.search.resultsPerPage; // 0;
-  const end = page * state.search.resultsPerPage; // 9;
-  return state.search.results.slice(start, end);
-}
-
-export function updateServings(newServings) {
-  state.recipe.ingredients.forEach((ing) => {
-    ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
-    // newQt = oldQt * newServings/oldServings //
-  });
-
-  state.recipe.servings = newServings;
-}
+//   state.recipe.servings = newServings;
+// }
 
 function persistBookmarks() {
   localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
@@ -77,7 +75,7 @@ export function addBookmark(recipe) {
 }
 
 export function deleteBookmark(id) {
-  const index = state.bookmarks.findIndex((bookmark) => bookmark.id === id);
+  const index = state.bookmarks.findIndex(bookmark => bookmark.id === id);
   state.bookmarks.splice(index, 1);
   // mark current recipe as NOT bookmarked
   if (id === state.recipe.id) state.recipe.bookmarked = false;
@@ -101,12 +99,12 @@ export async function uploadRecipe(newRecipe) {
   console.log(Object.entries(newRecipe));
 
   const ingredients = Object.entries(newRecipe)
-    .filter((entry) => entry[0].startsWith('ingredient') && entry[1] !== '')
-    .map((ing) => {
-      const ingArr = ing[1].split(',').map((el) => el.trim());
+    .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
+    .map(ing => {
+      const ingArr = ing[1].split(',').map(el => el.trim());
       if (ingArr.length !== 3)
         throw new Error(
-          'Wrong ingredient format! Please use correct format :)',
+          'Wrong ingredient format! Please use correct format :)'
         );
       const [quantity, unit, description] = ingArr;
       return { quantity: quantity ? +quantity : null, unit, description };

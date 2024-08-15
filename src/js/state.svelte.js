@@ -115,20 +115,21 @@ function createRecipe() {
     }
   }
 
+  function updateServings(newServings) {
+    recipe.ingredients.forEach(ing => {
+      ing.quantity = (ing.quantity * newServings) / recipe.servings;
+    });
+
+    recipe.servings = newServings;
+  }
+
   return {
     get recipe() {
       return recipe;
     },
-    set recipe(value) {
-      recipe = value;
-    },
-    get bookmarks() {
-      return bookmarks;
-    },
-    set bookmarks(value) {
-      bookmarks = value;
-    },
+    bookmarks,
     loadRecipe,
+    updateServings,
   };
 }
 
