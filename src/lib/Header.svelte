@@ -1,12 +1,12 @@
 <script>
   import { base } from '../js/config';
-  import Form from './Form.svelte';
+  import SearchForm from './SearchForm.svelte';
   import Nav from './Nav.svelte';
 </script>
 
 <header class="header">
   <img src="{base}/img/logo.png" alt="Logo" class="header__logo" />
-  <Form />
+  <SearchForm />
   <Nav />
 </header>
 

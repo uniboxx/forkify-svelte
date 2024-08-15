@@ -1,15 +1,17 @@
 <script>
   import { icons } from '../js/config';
-  import { recipeState, searchState } from '../js/state.svelte';
+  import { recipeState, searchState, modalState } from '../js/state.svelte';
   import Message from './Message.svelte';
   import Preview from './Preview.svelte';
-  import Recipe from './Recipe.svelte';
 </script>
 
 <nav class="nav">
   <ul class="nav__list">
     <li class="nav__item">
-      <button class="nav__btn nav__btn--add-recipe">
+      <button
+        class="nav__btn nav__btn--add-recipe"
+        onclick={() => (modalState.isOpen = true)}
+      >
         <svg class="nav__icon">
           <use href={`${icons}#icon-edit`}></use>
         </svg>
@@ -115,7 +117,7 @@
       list-style: none;
     }
 
-    &__field {
+    /* &__field {
       cursor: pointer;
       padding: 0 4rem;
 
@@ -127,7 +129,7 @@
       &:hover {
         background-color: variables.$color-grey-light-2;
       }
-    }
+    } */
 
     &:hover,
     .nav__btn--bookmarks:hover + & {

@@ -95,32 +95,32 @@ init();
 // }
 // clearBookmarks();
 
-export async function uploadRecipe(newRecipe) {
-  console.log(Object.entries(newRecipe));
+// export async function uploadRecipe(newRecipe) {
+//   console.log(Object.entries(newRecipe));
 
-  const ingredients = Object.entries(newRecipe)
-    .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
-    .map(ing => {
-      const ingArr = ing[1].split(',').map(el => el.trim());
-      if (ingArr.length !== 3)
-        throw new Error(
-          'Wrong ingredient format! Please use correct format :)'
-        );
-      const [quantity, unit, description] = ingArr;
-      return { quantity: quantity ? +quantity : null, unit, description };
-    });
-  const recipe = {
-    title: newRecipe.title,
-    source_url: newRecipe.sourceUrl,
-    image_url: newRecipe.image,
-    publisher: newRecipe.publisher,
-    cooking_time: newRecipe.cookingTime,
-    servings: newRecipe.servings,
-    ingredients,
-  };
-  console.log(recipe);
-  const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
-  console.log(data);
-  state.recipe = createRecipeObject(data);
-  addBookmark(state.recipe);
-}
+//   const ingredients = Object.entries(newRecipe)
+//     .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
+//     .map(ing => {
+//       const ingArr = ing[1].split(',').map(el => el.trim());
+//       if (ingArr.length !== 3)
+//         throw new Error(
+//           'Wrong ingredient format! Please use correct format :)'
+//         );
+//       const [quantity, unit, description] = ingArr;
+//       return { quantity: quantity ? +quantity : null, unit, description };
+//     });
+//   const recipe = {
+//     title: newRecipe.title,
+//     source_url: newRecipe.sourceUrl,
+//     image_url: newRecipe.image,
+//     publisher: newRecipe.publisher,
+//     cooking_time: newRecipe.cookingTime,
+//     servings: newRecipe.servings,
+//     ingredients,
+//   };
+//   console.log(recipe);
+//   const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
+//   console.log(data);
+//   state.recipe = createRecipeObject(data);
+//   addBookmark(state.recipe);
+// }

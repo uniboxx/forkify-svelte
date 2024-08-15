@@ -150,6 +150,41 @@ function createRecipe() {
     recipe.bookmarked = false;
   }
 
+  async function uploadRecipe(newRecipe) {
+    console.log(Object.entries(newRecipe));
+
+    try {
+      const ingredients = Object.entries(newRecipe)
+        .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
+        .map(ing => {
+          const ingArr = ing[1].split(',').map(el => el.trim());
+          if (ingArr.length !== 3)
+            throw new Error(
+              'Wrong ingredient format! Please use correct format :)'
+            );
+          const [quantity, unit, description] = ingArr;
+          return { quantity: quantity ? +quantity : null, unit, description };
+        });
+      const myRecipe = {
+        title: newRecipe.title,
+        source_url: newRecipe.sourceUrl,
+        image_url: newRecipe.image,
+        publisher: newRecipe.publisher,
+        cooking_time: newRecipe.cookingTime,
+        servings: newRecipe.servings,
+        ingredients,
+      };
+      console.log(myRecipe);
+      const data = await AJAX(`${API_URL}?key=${KEY}`, myRecipe);
+      console.log(data);
+      recipe = createRecipeObject(data);
+      addBookmark(recipe);
+      return `Recipe was successfully uploaded`;
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
   return {
     get recipe() {
       return recipe;
@@ -162,7 +197,23 @@ function createRecipe() {
     addBookmark,
     deleteBookmark,
     clearBookmarks,
+    uploadRecipe,
   };
 }
 
 export const recipeState = createRecipe();
+
+function createModal() {
+  let isOpen = $state(false);
+
+  return {
+    get isOpen() {
+      return isOpen;
+    },
+    set isOpen(value) {
+      isOpen = value;
+    },
+  };
+}
+
+export const modalState = createModal();
