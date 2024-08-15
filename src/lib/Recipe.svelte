@@ -209,7 +209,7 @@
 
       @media only screen and (max-width: variables.$bp-small) {
         padding: 0.5rem;
-        margin-top: 5ch;
+        margin-top: 5rem;
       }
     }
 
