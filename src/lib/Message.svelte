@@ -19,8 +19,14 @@
     max-width: 40rem;
     margin: 0 auto;
     padding: 5rem 4rem;
-
     display: flex;
+
+    @media only screen and (max-width: variables.$bp-small) {
+      font-size: 1.9rem;
+      width: 80%;
+      margin: 50% auto;
+      // border: 1px solid #666;
+    }
 
     svg {
       height: 3rem;

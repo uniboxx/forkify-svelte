@@ -121,6 +121,15 @@
         font-size: 1.5rem;
         font-weight: 600;
         color: inherit;
+
+        @media only screen and (max-width: variables.$bp-820) {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          gap: 1rem;
+          font-size: 1.7rem;
+        }
       }
 
       & input {
@@ -129,6 +138,13 @@
         border: 1px solid #ddd;
         border-radius: 0.5rem;
         transition: all 0.2s;
+
+        @media only screen and (max-width: variables.$bp-820) {
+          padding: 0.4rem 0.8rem;
+          margin-left: auto;
+          display: inline-block;
+          font-size: 1.7rem;
+        }
 
         &::placeholder {
           color: variables.$color-grey-light-3;
@@ -154,6 +170,11 @@
       text-transform: uppercase;
       margin-bottom: 1rem;
       grid-column: 1/-1;
+
+      @media only screen and (max-width: variables.$bp-820) {
+        font-size: 1.9rem;
+        margin-bottom: 0rem;
+      }
     }
 
     &__btn {

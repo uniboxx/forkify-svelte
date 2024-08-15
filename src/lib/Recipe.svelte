@@ -68,14 +68,14 @@
 
           <div class="recipe__info-buttons">
             <button
-              class="btn--tiny btn--decrease-servings"
+              class="btn--tiny btn--servings"
               onclick="{decreaseServings}">
-              <svg>
+              <svg class="servings-btn">
                 <use href="{`${icons}#icon-minus-circle`}"></use>
               </svg>
             </button>
             <button
-              class="btn--tiny btn--increase-servings"
+              class="btn--tiny btn--servings"
               onclick="{increaseServings}">
               <svg>
                 <use href="{`${icons}#icon-plus-circle`}"></use>
@@ -89,8 +89,9 @@
             <use href="{`${icons}#icon-user`}"></use>
           </svg>
         </div>
-        <button class="btn--round" onclick="{handleBookmarkBtn}">
-          <svg class="">
+
+        <button class="btn--round bookmark-btn" onclick="{handleBookmarkBtn}">
+          <svg>
             <use
               href="{`${icons}#icon-bookmark${recipe.bookmarked ? '-fill' : ''}`}"
             ></use>
@@ -219,16 +220,32 @@
       display: flex;
       align-items: center;
 
+      @media only screen and (max-width: variables.$bp-small) {
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+
       &:not(:last-child) {
-        padding-right: 4.5rem;
+        margin-right: 4.5rem;
+
+        @media only screen and (max-width: variables.$bp-small) {
+          margin-right: 1.5rem;
+        }
       }
     }
 
     &__info-icon {
       height: 2.35rem;
       width: 2.35rem;
-      fill: variables.$color-primary;
       margin-right: 1.15rem;
+      fill: variables.$color-primary;
+
+      @media only screen and (max-width: variables.$bp-small) {
+        height: 3.35rem;
+        width: 3.35rem;
+        margin-right: 2.15rem;
+      }
     }
 
     &__info-data {
@@ -240,6 +257,26 @@
       display: flex;
       margin-left: 1.6rem;
       transform: translateY(-1px);
+      & .btn--servings {
+        width: 40px;
+        height: 40px;
+        margin-left: 3rem;
+
+        & .servings-btn {
+          height: 100%;
+          width: 100%;
+        }
+        @media only screen and (max-width: variables.$bp-small) {
+          width: 30px;
+          height: 30px;
+          margin-left: 3rem;
+
+          & .servings-btn {
+            height: 100%;
+            width: 100%;
+          }
+        }
+      }
     }
 
     &__user-generated {
@@ -263,6 +300,11 @@
       &.hidden {
         visibility: hidden;
         opacity: 0;
+      }
+    }
+    .bookmark-btn {
+      @media only screen and (max-width: variables.$bp-small) {
+        margin-right: 2rem;
       }
     }
 

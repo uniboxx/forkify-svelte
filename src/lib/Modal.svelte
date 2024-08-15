@@ -31,11 +31,11 @@
       }, 3000);
       return message;
     } catch (err) {
+      throw new Error(err.message);
+    } finally {
       setTimeout(() => {
         isSubmitted = false;
       }, 5000);
-      throw new Error(err.message);
-    } finally {
     }
   }
 </script>
