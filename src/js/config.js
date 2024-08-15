@@ -4,4 +4,4 @@ export const RES_PER_PAGE = 10;
 export const KEY = '6a8841f2-a803-459d-aa14-5000ee116417';
 export const MODAL_CLOSE_SEC = 2.5;
 export const base = '/forkify-svelte';
-export const icons = `${base}/img/icons.svg/`;
+export const icons = `${base}/img/icons.svg`;
