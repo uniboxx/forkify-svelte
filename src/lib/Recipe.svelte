@@ -3,6 +3,7 @@
 
   import { icons } from '../js/config';
   import { searchState, recipeState } from '../js/state.svelte';
+  import Copyright from './Copyright.svelte';
   import Ingredient from './Ingredient.svelte';
   import Message from './Message.svelte';
   import Spinner from './Spinner.svelte';
@@ -126,6 +127,9 @@
         </a>
       </div>
     {/await}
+  {/if}
+  {#if screen.width < 600}
+    <Copyright />
   {/if}
 </div>
 

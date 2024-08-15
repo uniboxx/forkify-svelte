@@ -10,8 +10,7 @@
   {#if searchState.page > 1}
     <button
       class="btn--inline pagination__btn--prev"
-      onclick={() => searchState.page--}
-    >
+      onclick="{() => searchState.page--}">
       <svg class="search__icon">
         <use href="{icons}#icon-arrow-left"></use>
       </svg>
@@ -21,8 +20,7 @@
   {#if searchState.page < searchState.numOfPages}
     <button
       class="btn--inline pagination__btn--next"
-      onclick={() => searchState.page++}
-    >
+      onclick="{() => searchState.page++}">
       <span>{`Page ${searchState.page + 1}`} </span>
       <svg class="search__icon">
         <use href="{icons}#icon-arrow-right"></use>
@@ -37,6 +35,10 @@
   .pagination {
     margin-top: auto;
     padding: 0 3.5rem;
+
+    @media only screen and (max-width: variables.$bp-small) {
+      margin-top: 1rem;
+    }
 
     &::after {
       content: '';

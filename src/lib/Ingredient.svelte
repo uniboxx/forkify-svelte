@@ -24,6 +24,10 @@
   .recipe {
     &__ingredient {
       display: flex;
+
+      @media only screen and (max-width: variables.$bp-smallest) {
+        font-size: 1.7rem;
+      }
     }
 
     &__icon {

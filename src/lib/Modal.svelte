@@ -24,10 +24,10 @@
 
       // console.log(recipeState.recipe);
       searchState.urlId = recipeState.recipe.id;
-      // window.location.href = `${base}#${recipeState.recipe.id}`;
 
       setTimeout(() => {
         modalState.isOpen = false;
+        location.href = `${base}#${recipeState.recipe.id}`;
       }, 3000);
       return message;
     } catch (err) {
@@ -50,9 +50,9 @@
     {#await handleUpload(formData)}
       <Spinner />
     {:then message}
-      <Message text="{message}" />
+      <Message text="{message}" modalSmall="{true}" />
     {:catch message}
-      <Message text="{message}" />
+      <Message text="{message}" modalSmall="{true}" />
     {/await}
   {/if}
 </div>

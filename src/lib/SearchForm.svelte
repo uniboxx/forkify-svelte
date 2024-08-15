@@ -17,7 +17,9 @@
   <input
     type="text"
     class="search__field"
-    placeholder="Search over 1,000,000 recipes..."
+    placeholder="{screen.width > 600
+      ? 'Search over 1,000,000 recipes...'
+      : 'Search'}"
     bind:value="{input}" />
   <button class="btn search__btn">
     <svg class="search__icon">
@@ -81,8 +83,9 @@
       }
       &__btn {
         max-width: 40%;
-        padding: 0.5rem 1rem;
+        padding: 1rem;
         margin-left: auto;
+        font-size: 2rem;
       }
     }
     @media only screen and (max-width: variables.$bp-medium) {

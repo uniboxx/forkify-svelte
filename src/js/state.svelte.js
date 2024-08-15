@@ -2,6 +2,18 @@
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
 import { AJAX } from './helpers.js';
 
+function createGlobals() {
+  let screenWidth = $state(screen.width);
+
+  return {
+    get screenWidth() {
+      return screenWidth;
+    },
+  };
+}
+
+export const globalState = createGlobals();
+
 function createSearches() {
   const resultsPerPage = screen.width < 600 ? 5 : RES_PER_PAGE;
 

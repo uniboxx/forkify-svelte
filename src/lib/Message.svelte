@@ -1,9 +1,9 @@
 <script>
   import { icons } from '../js/config';
-  const { text } = $props();
+  const { text, modalSmall } = $props();
 </script>
 
-<div class="message">
+<div class="{`message ${modalSmall && 'modalSmall'}`}">
   <div>
     <svg>
       <use href="{icons}#icon-smile"></use>
@@ -21,11 +21,13 @@
     padding: 5rem 4rem;
     display: flex;
 
-    @media only screen and (max-width: variables.$bp-small) {
-      font-size: 1.9rem;
-      width: 80%;
-      margin: 50% auto;
-      // border: 1px solid #666;
+    &.modalSmall {
+      @media only screen and (max-width: variables.$bp-small) {
+        font-size: 1.9rem;
+        width: 80%;
+        margin: 60% auto;
+        // border: 1px solid #666;
+      }
     }
 
     svg {
