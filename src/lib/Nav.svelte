@@ -1,6 +1,7 @@
 <script>
   import { icons } from '../js/config';
   import { recipeState, searchState } from '../js/state.svelte';
+  import Message from './Message.svelte';
   import Preview from './Preview.svelte';
   import Recipe from './Recipe.svelte';
 </script>
@@ -25,14 +26,9 @@
       <div class="bookmarks">
         <ul class="bookmarks__list">
           {#if !recipeState.bookmarks.length}
-            <div class="message">
-              <div>
-                <svg>
-                  <use href="{icons}#icon-smile"></use>
-                </svg>
-              </div>
-              <p>No bookmarks yet. Find a nice recipe and bookmark it :)</p>
-            </div>
+            <Message
+              text="No bookmarks yet. Find a nice recipe and bookmark it :)"
+            />
           {:else}
             {#each recipeState.bookmarks as bookmark (bookmark.id)}
               <Preview preview={bookmark} urlId={searchState.urlId} {onclick} />
@@ -52,28 +48,6 @@
 
 <style lang="scss">
   @use '../sass/variables';
-
-  .message {
-    max-width: 40rem;
-    margin: 0 auto;
-    padding: 5rem 4rem;
-
-    display: flex;
-
-    svg {
-      height: 3rem;
-      width: 3rem;
-      fill: variables.$color-primary;
-      transform: translateY(-0.3rem);
-    }
-
-    p {
-      margin-left: 1.5rem;
-      font-size: 1.8rem;
-      line-height: 1.5;
-      font-weight: 600;
-    }
-  }
 
   .nav {
     align-self: stretch;
