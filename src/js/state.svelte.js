@@ -133,7 +133,7 @@ function createRecipe() {
     // mark current recipe as bookmarked
     recipe.bookmarked = true;
     persistBookmarks();
-    console.log(bookmarks);
+    // console.log(bookmarks);
   }
 
   function deleteBookmark(id) {
@@ -151,7 +151,7 @@ function createRecipe() {
   }
 
   async function uploadRecipe(newRecipe) {
-    console.log(Object.entries(newRecipe));
+    // console.log(Object.entries(newRecipe));
 
     try {
       const ingredients = Object.entries(newRecipe)
@@ -174,11 +174,11 @@ function createRecipe() {
         servings: newRecipe.servings,
         ingredients,
       };
-      console.log(myRecipe);
+
       const data = await AJAX(`${API_URL}?key=${KEY}`, myRecipe);
-      console.log(data);
       recipe = createRecipeObject(data);
       addBookmark(recipe);
+
       return `Recipe was successfully uploaded`;
     } catch (err) {
       throw new Error(err.message);
@@ -189,8 +189,14 @@ function createRecipe() {
     get recipe() {
       return recipe;
     },
+    set recipe(value){
+      recipe=value;
+    },
     get bookmarks() {
       return bookmarks;
+    },
+    set bookmarks(value){
+      bookmarks=value;
     },
     loadRecipe,
     updateServings,

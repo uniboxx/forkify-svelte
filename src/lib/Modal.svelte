@@ -1,28 +1,62 @@
 <script>
-  import { modalState, recipeState } from '../js/state.svelte';
+  import { base } from '../js/config';
+  import { modalState, recipeState, searchState } from '../js/state.svelte';
   import AddForm from './AddForm.svelte';
   import Message from './Message.svelte';
   import Overlay from './Overlay.svelte';
   import Spinner from './Spinner.svelte';
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  let isSubmitted = $state(false);
+  let formData = $state({});
 
+  const { uploadRecipe } = recipeState;
+
+  function handleSubmit(e) {
+    e.preventDefault();
     const dataArr = [...new FormData(this)];
-    const data = Object.fromEntries(dataArr);
-    // await recipeState.uploadRecipe(data);
-    await new Promise((resolve, reject) =>
-      setTimeout(() => resolve('awaited'), 3000),
-    );
+    // console.log(dataArr);
+    formData = Object.fromEntries(dataArr);
+    // console.log(formData);
+    isSubmitted = true;
+  }
+
+  async function handleUpload(data) {
+    try {
+      const message = await recipeState.uploadRecipe(data);
+
+      // console.log(recipeState.recipe);
+      searchState.urlId = recipeState.recipe.id;
+      // window.location.href = `${base}#${recipeState.recipe.id}`;
+
+      setTimeout(() => {
+        modalState.isOpen = false;
+      }, 3000);
+      return message;
+    } catch (err) {
+      setTimeout(() => {
+        isSubmitted = false;
+      }, 5000);
+      throw new Error(err.message);
+    } finally {
+    }
   }
 </script>
 
 <Overlay />
-<div class={`add-recipe-window ${!modalState.isOpen ? 'hidden' : ''}`}>
-  <button class="btn--close-modal" onclick={() => (modalState.isOpen = false)}
-    >&times;</button
-  >
-  <AddForm onsubmit={handleSubmit} />
+<div class="{`add-recipe-window ${!modalState.isOpen ? 'hidden' : ''}`}">
+  <button class="btn--close-modal" onclick="{() => (modalState.isOpen = false)}"
+    >&times;</button>
+  {#if !isSubmitted}
+    <AddForm onsubmit="{handleSubmit}" />
+  {:else}
+    {#await handleUpload(formData)}
+      <Spinner />
+    {:then message}
+      <Message text="{message}" />
+    {:catch message}
+      <Message text="{message}" />
+    {/await}
+  {/if}
 </div>
 
 <style lang="scss">

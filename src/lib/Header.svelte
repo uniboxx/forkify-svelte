@@ -5,7 +5,9 @@
 </script>
 
 <header class="header">
-  <img src="{base}/img/logo.png" alt="Logo" class="header__logo" />
+  <a href="{`${base}`}">
+    <img src="{base}/img/logo.png" alt="Logo" class="header__logo" />
+  </a>
   <SearchForm />
   <Nav />
 </header>
