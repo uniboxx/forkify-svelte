@@ -2,6 +2,7 @@
   import { icons } from '../js/config';
   import { recipeState, searchState } from '../js/state.svelte';
   import Preview from './Preview.svelte';
+  import Recipe from './Recipe.svelte';
 </script>
 
 <nav class="nav">
@@ -36,6 +37,12 @@
             {#each recipeState.bookmarks as bookmark (bookmark.id)}
               <Preview preview={bookmark} urlId={searchState.urlId} {onclick} />
             {/each}
+            <button
+              id="clearBookmarks"
+              onclick={() => recipeState.clearBookmarks()}
+            >
+              Clear Bookmarks
+            </button>
           {/if}
         </ul>
       </div>
@@ -153,5 +160,14 @@
       visibility: visible;
       opacity: 1;
     }
+  }
+  #clearBookmarks {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: variables.$color-primary;
+    color: variables.$color-grey-dark-1;
+    cursor: pointer;
+    margin-top: 1rem;
   }
 </style>

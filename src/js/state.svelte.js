@@ -144,6 +144,12 @@ function createRecipe() {
     persistBookmarks();
   }
 
+  function clearBookmarks() {
+    localStorage.clear('bookmarks');
+    bookmarks = [];
+    recipe.bookmarked = false;
+  }
+
   return {
     get recipe() {
       return recipe;
@@ -155,6 +161,7 @@ function createRecipe() {
     updateServings,
     addBookmark,
     deleteBookmark,
+    clearBookmarks,
   };
 }
 

@@ -90,9 +90,9 @@ function init() {
 init();
 // console.log(state.bookmarks);
 
-function clearBookmarks() {
-  localStorage.clear('bookmarks');
-}
+// function clearBookmarks() {
+//   localStorage.clear('bookmarks');
+// }
 // clearBookmarks();
 
 export async function uploadRecipe(newRecipe) {
