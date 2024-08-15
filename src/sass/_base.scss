@@ -54,7 +54,7 @@ body {
     overflow: auto;
   }
   @media only screen and (max-width: $bp-820) {
-    grid-template-rows: 10rem auto;
+    grid-template-rows: 18rem auto;
     grid-template-columns: 1fr;
     grid-template-areas:
       "head "

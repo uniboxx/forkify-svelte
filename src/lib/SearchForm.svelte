@@ -39,7 +39,10 @@
     transition: all 0.3s;
 
     @media only screen and (max-width: variables.$bp-smallest) {
-      width: 100%;
+      width: 96%;
+      height: 6rem;
+      align-items: center;
+      font-size: 4rem;
     }
 
     &:focus-within {
@@ -54,6 +57,10 @@
       color: inherit;
       font-size: 1.7rem;
       max-width: 30rem;
+
+      @media only screen and (max-width: variables.$bp-smallest) {
+        font-size: 3rem;
+      }
 
       &:focus {
         outline: none;
