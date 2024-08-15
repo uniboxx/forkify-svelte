@@ -3,7 +3,7 @@ import { API_URL, RES_PER_PAGE, KEY } from './config.js';
 import { AJAX } from './helpers.js';
 
 function createSearches() {
-  const resultsPerPage = RES_PER_PAGE;
+  const resultsPerPage = screen.width < 600 ? 5 : RES_PER_PAGE;
 
   let query = $state('');
   let recipes = $state([]);
@@ -189,14 +189,14 @@ function createRecipe() {
     get recipe() {
       return recipe;
     },
-    set recipe(value){
-      recipe=value;
+    set recipe(value) {
+      recipe = value;
     },
     get bookmarks() {
       return bookmarks;
     },
-    set bookmarks(value){
-      bookmarks=value;
+    set bookmarks(value) {
+      bookmarks = value;
     },
     loadRecipe,
     updateServings,
