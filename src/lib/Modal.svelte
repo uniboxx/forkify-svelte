@@ -80,7 +80,6 @@
       left: 0;
       transform: translate(0, 0);
       width: 100%;
-      /* height: 150%; */
       padding: 1rem;
     }
 
