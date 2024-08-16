@@ -41,18 +41,18 @@
 </script>
 
 <Overlay />
-<div class="{`add-recipe-window ${!modalState.isOpen ? 'hidden' : ''}`}">
-  <button class="btn--close-modal" onclick="{() => (modalState.isOpen = false)}"
+<div class={`add-recipe-window ${!modalState.isOpen ? 'hidden' : ''}`}>
+  <button class="btn--close-modal" onclick={() => (modalState.isOpen = false)}
     >&times;</button>
   {#if !isSubmitted}
-    <AddForm onsubmit="{handleSubmit}" />
+    <AddForm onsubmit={handleSubmit} />
   {:else}
     {#await handleUpload(formData)}
       <Spinner />
     {:then message}
-      <Message text="{message}" modalSmall="{true}" />
+      <Message text={message} modalSmall={true} />
     {:catch message}
-      <Message text="{message}" modalSmall="{true}" />
+      <Message text={message} modalSmall={true} />
     {/await}
   {/if}
 </div>
@@ -75,10 +75,12 @@
     transition: all 0.5s;
 
     @media only screen and (max-width: variables.$bp-820) {
+      position: absolute;
       top: 0;
       left: 0;
       transform: translate(0, 0);
       width: 100%;
+      height: 150%;
       padding: 1rem;
     }
 

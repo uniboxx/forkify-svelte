@@ -13,14 +13,14 @@
   }
 </script>
 
-<form class="search" onsubmit="{handleSubmit}">
+<form class="search" onsubmit={handleSubmit}>
   <input
     type="text"
     class="search__field"
-    placeholder="{screen.width > 600
+    placeholder={screen.width > 600
       ? 'Search over 1,000,000 recipes...'
-      : 'Search'}"
-    bind:value="{input}" />
+      : 'Search'}
+    bind:value={input} />
   <button class="btn search__btn">
     <svg class="search__icon">
       <use href="/img/icons.svg#icon-search"></use>
@@ -41,8 +41,8 @@
     transition: all 0.3s;
 
     @media only screen and (max-width: variables.$bp-smallest) {
-      width: 96%;
-      height: 6rem;
+      width: 100%;
+      height: 5rem;
       align-items: center;
       font-size: 4rem;
     }
@@ -83,13 +83,13 @@
       }
       &__btn {
         max-width: 40%;
-        padding: 1rem;
-        margin-left: auto;
-        font-size: 2rem;
+        padding: 0.7rem;
+        margin: auto;
+        font-size: 1.9rem;
       }
     }
     @media only screen and (max-width: variables.$bp-medium) {
-      padding-right: 2rem;
+      padding-right: 0rem;
     }
   }
 </style>
