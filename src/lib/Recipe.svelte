@@ -180,11 +180,20 @@
       transform: translate(-50%, 20%) skewY(-6deg);
       color: #fff;
       font-weight: 700;
-      font-size: 3.25rem;
+      font-size: 2.25rem;
       text-transform: uppercase;
       width: 50%;
       line-height: 1.95;
       text-align: center;
+
+      @media only screen and (max-width: variables.$bp-large) {
+        font-size: 1.7rem;
+        width: 100%;
+      }
+      @media only screen and (max-width: variables.$bp-small) {
+        font-size: 1.5rem;
+        width: 100%;
+      }
 
       span {
         -webkit-box-decoration-break: clone;

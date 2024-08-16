@@ -39,10 +39,11 @@
     align-items: center;
     padding-left: 3rem;
     transition: all 0.3s;
-    max-width: 100svw;
 
-    @media only screen and (max-width: variables.$bp-smallest) {
+    @media only screen and (max-width: variables.$bp-small) {
       font-size: 4rem;
+      max-width: 100%;
+      padding: 0 0 0 2rem;
     }
 
     &:focus-within {
