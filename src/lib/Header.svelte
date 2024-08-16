@@ -5,7 +5,7 @@
 </script>
 
 <header class="header">
-  <a href="{`${base}`}">
+  <a href={`${base}`}>
     <img src="{base}/img/logo.png" alt="Logo" class="header__logo" />
   </a>
   <SearchForm />
@@ -23,9 +23,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
 
-    & a {
-      @media only screen and (max-width: variables.$bp-small) {
-      }
+    @media only screen and (max-width: variables.$bp-small) {
     }
 
     &__logo {

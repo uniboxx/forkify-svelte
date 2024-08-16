@@ -15,12 +15,10 @@
     color: variables.$color-grey-dark-2;
     font-size: 1.2rem;
     padding: 0 3.5rem;
-    margin-top: 4rem;
-    white-space: pre-wrap;
+    margin-top: 1rem;
 
     @media only screen and (max-width: variables.$bp-small) {
-      padding: 0.5rem;
-      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
     }
 
     .twitter-link:link,

@@ -7,6 +7,7 @@
   import Preview from './Preview.svelte';
   import Spinner from './Spinner.svelte';
   import Copyright from './Copyright.svelte';
+  import Sign from './Sign.svelte';
 
   async function getPreviews(page) {
     if (searchState.query) await searchState.loadSearchResults();
@@ -29,8 +30,9 @@
     {/await}
   </ul>
 
-  <Pagination page="{searchState.page}" />
+  <Pagination page={searchState.page} />
   {#if screen.width > 600}
+    <Sign />
     <Copyright />
   {/if}
 </div>

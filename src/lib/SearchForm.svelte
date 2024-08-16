@@ -41,9 +41,6 @@
     transition: all 0.3s;
 
     @media only screen and (max-width: variables.$bp-smallest) {
-      width: 100%;
-      height: 5rem;
-      align-items: center;
       font-size: 4rem;
     }
 
