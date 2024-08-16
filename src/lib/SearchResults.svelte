@@ -8,6 +8,7 @@
   import Spinner from './Spinner.svelte';
   import Copyright from './Copyright.svelte';
   import Sign from './Sign.svelte';
+  import Message from './Message.svelte';
 
   async function getPreviews(page) {
     if (searchState.query) await searchState.loadSearchResults();
@@ -24,9 +25,14 @@
     {#await getPreviews(searchState.page)}
       <Spinner />
     {:then previews}
-      {#each previews as preview (preview.id)}
-        <Preview {preview} {onclick} />
-      {/each}
+      {#if previews.length === 0 && searchState.query}
+        <Message
+          text={`No recipes found for "${searchState.query}" ! Please try again! 🧐`} />
+      {:else}
+        {#each previews as preview (preview.id)}
+          <Preview {preview} {onclick} />
+        {/each}
+      {/if}
     {/await}
   </ul>
 

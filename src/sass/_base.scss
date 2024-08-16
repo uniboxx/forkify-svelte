@@ -9,7 +9,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  max-width: 100svw;
 }
 
 html {
@@ -46,6 +45,9 @@ body {
   grid-template-areas:
     "head head"
     "list recipe";
+  & > * {
+    max-width: 100svw;
+  }
 
   @media only screen and (max-width: $bp-large) {
     max-width: 100%;

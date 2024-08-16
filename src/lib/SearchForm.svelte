@@ -39,6 +39,7 @@
     align-items: center;
     padding-left: 3rem;
     transition: all 0.3s;
+    max-width: 100svw;
 
     @media only screen and (max-width: variables.$bp-smallest) {
       font-size: 4rem;
@@ -58,7 +59,7 @@
       max-width: 30rem;
 
       @media only screen and (max-width: variables.$bp-smallest) {
-        font-size: 3rem;
+        font-size: 2.5rem;
       }
 
       &:focus {

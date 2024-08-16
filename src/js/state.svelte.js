@@ -36,7 +36,7 @@ function createSearches() {
         image: rec.image_url,
         ...(rec.key && { key: rec.key }),
       }));
-      query = '';
+      // query = '';
 
       // state.update(obj=>obj.search.page = 1);
     } catch (err) {
